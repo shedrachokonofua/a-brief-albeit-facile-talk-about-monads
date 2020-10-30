@@ -133,6 +133,6 @@ const handleLoginResult = matchResult({
 try {
   const result = await login(creds);
   handleLoginResult(result);
-}
+} catch (err) {}
 
 ```
