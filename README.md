@@ -75,7 +75,7 @@ const FilterableList = () => {
 What about computations that might fail? The usual approach in most languages is to throw an *Exception* whether or not the failure was truly *exceptional* i.e. if failure could be a rational outcome of the computation in question. This is a critical  but often overlooked distinction. In many problems, failure cases are first-class citizens that carry as much business domain context as success cases, we often have to differentiate domain errors and invariants from techinical errors. Take a login procedure with a limited amount of tries, there are 2 obvious domain errors here: 
 - a failed login attempt due to invalid creditials, and
 - too many failed login attempts due to invalid creditials.
-There could be any number technical errors depending on the implementation specifics but they usually signal the environment(cpu, memory, database, networking, etc.) are not behaving as the program would normally expect, regardless of whether or not all business invariants have been met, that is to say, there's something *exceptional* about this case.
+There could be any number technical errors depending on the implementation specifics but they usually signal that the environment(cpu, memory, database, networking, etc.) is not behaving as the program would normally expect, regardless of whether or not all business invariants have been met, that is to say, there's something *exceptional* about this case.
 One approach to dealing with the distinction between Failures and Exceptions is using checked exceptions:
 
 ```typescript
