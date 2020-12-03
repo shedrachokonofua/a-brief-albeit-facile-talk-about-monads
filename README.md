@@ -5,7 +5,7 @@ Today I'll be going through 2 common monads that are both simple to adopt and ev
 I'll be skipping the (loaded) mathematical background of monads and Functional Programming, but if that's something you'd want to check out, I'd recommend Giulio Canti's [Introduction to Functional Programming](https://github.com/gcanti/functional-programming) where he works through the theoretical foundations of FP all the way up to the composition of monads. 
 
 ## It's all about composition
-Monads are FP constructs that attempt to abstract away the procedures involved in sequencing and control flow. With the right monads we can enjoy the powerful **compositional** flow and referential transparency FP allows us even as we represent complex branching problems that may or may not succeed.
+Monads are FP constructs that attempt to abstract away the procedures involved in sequencing and control flow. With the right monads we can enjoy the powerful **compositional** flow and referential transparency that FP allows us, even as we represent complex branching problems that may or may not succeed.
 
 ### Maybe Monad
 We often encounter computations in which there might potentially be no result, often we'd reach for, or be handed, a null value and call it day. What's so wrong with that? Well not a lot if you work in a type system that comes with null-safety i.e. your compiler can tell which values may or may not be null/undefined at compile time and refuse to build if you're doing anything unsound, otherwise any non-trivial code base is bound to become rich in null-checks, and almost no way to know certainly which functions may return null/undefined without getting involved in their details. The `Maybe` monad offers us an elegant alternative, wrap the return value in a `Just` if available otherwise return a `Nothing`.
@@ -17,7 +17,7 @@ const safeHead = (list: number[]): Maybe.Maybe<number> => Maybe.fromNullable(lis
 // const head = (list: number[]): Maybe.Maybe<number> => value === undefined ? Maybe.Just.of(value) : Maybe.Nothing.of();
 ```
 
-Ok nice, but why would anyone want to go through that trouble? Like we said either, compositional flow. 
+Ok nice, but why would anyone want to go through that trouble? Like I said earlier, compositional flow. 
 Let's say we want to find the square of the head of a list of numbers.
 
 ```typescript
@@ -75,6 +75,7 @@ const FilterableList = () => {
 What about computations that might fail? The usual approach in most languages is to throw an *Exception* whether or not the failure was truly *exceptional* i.e. if failure could be a rational outcome of the computation in question. This is a critical  but often overlooked distinction. In many problems, failure cases are first-class citizens that carry as much business domain context as success cases, we often have to differentiate domain errors and invariants from techinical errors. Take a login procedure with a limited amount of tries, there are 2 obvious domain errors here: 
 - a failed login attempt due to invalid creditials, and
 - too many failed login attempts due to invalid creditials.
+
 There could be any number technical errors depending on the implementation specifics but they usually signal that the environment(cpu, memory, database, networking, etc.) is not behaving as the program would normally expect, regardless of whether or not all business invariants have been met, that is to say, there's something *exceptional* about this case.
 One approach to dealing with the distinction between Failures and Exceptions is using checked exceptions:
 
